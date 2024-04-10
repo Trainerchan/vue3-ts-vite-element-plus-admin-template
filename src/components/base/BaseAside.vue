@@ -9,12 +9,12 @@
       </RouterLink>
       <el-menu router :default-active="commonStore.compActiveMenuIndex" :collapse="commonStore.compMenuCollapse"
         background-color="transparent" text-color="rgb(234, 234, 234)">
-        <el-sub-menu :index="`${idx1 + 1}`" v-for="(subMenu, idx1) in menuList" :key="subMenu.name">
+        <el-sub-menu :index="subMenu.index" v-for="(subMenu, idx1) in compMenuList" :key="subMenu.name">
           <template #title>
             <i class="iconfont" :class="[subMenu.icon]" style="font-size: 22px;"></i>
             <span style="padding-left: 10px">{{ subMenu.text }}</span>
           </template>
-          <el-menu-item :index="`${idx1 + 1}-${idx2 + 1}`" v-for="(menuItem, idx2) in subMenu.children"
+          <el-menu-item :index="menuItem.index" v-for="(menuItem, idx2) in subMenu.children"
             :key="menuItem.name" :route="{ name: menuItem.name }">
             {{ menuItem.text }}
           </el-menu-item>
@@ -27,18 +27,23 @@
 <script setup lang="ts">
 import BaseLogo from './BaseLogo.vue'
 import { useCommonStore } from '@/stores/common'
-import { menuList } from '@/config/menu.config'
-// import { computed } from 'vue'
-// import type { Menu } from '@/types/menu'
+import { menuList, noMenuList } from '@/config/menu.config'
+import { computed } from 'vue'
+import type { Menu } from '@/types/menu'
 
 const commonStore = useCommonStore()
-// const compMenuList = computed(() => {
-//   noMenuList.forEach((noMenu) => {
-//     const indexList = noMenu.index.split('-').map((v: string) => Number(v))
-//     asideMenuList[indexList[0] - 1].children?.splice(indexList[1] - 1) as Menu[]
-//   })
-//   return asideMenuList
-// })
+const compMenuList = computed(() => {
+  let newMenuList: Menu[] = []
+  noMenuList.forEach((noMenu) => {
+    newMenuList = menuList.filter((v1) => {
+      v1.children = v1.children?.filter((v2) => {
+        return v2.index !== noMenu.index
+      })
+      return v1.index !== noMenu.index
+    })
+  })
+  return newMenuList
+})
 </script>
 
 <style lang="scss" scoped>

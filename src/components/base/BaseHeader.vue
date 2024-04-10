@@ -9,10 +9,9 @@
     <div class="header-right">
       <el-dropdown placement="bottom-end" @command="handleCommand">
         <span class="el-dropdown-link">
-          <!-- <el-avatar :src="userStore.compUserInfo.image" alt="管理员"></el-avatar> -->
-          <el-avatar :src="AdminAvatar" alt="管理员"></el-avatar>
-          <!-- <span class="username">{{ userStore.compUserInfo.user_name }}</span> -->
-          <span class="username">测试的名字</span>
+          <el-avatar :src="userStore.compUserInfo.image" alt="管理员"></el-avatar>
+          <!-- <el-avatar :src="AdminAvatar" alt="管理员"></el-avatar> -->
+          <span class="username">{{ userStore.compUserInfo.user_name }}</span>
           <span>
             <i class="iconfont mj-xiala"></i>
           </span>

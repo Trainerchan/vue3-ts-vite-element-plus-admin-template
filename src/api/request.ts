@@ -7,7 +7,7 @@ import { TIMEOUT } from '@/config/base.config'
 
 let loadingNum: number = 0
 
-export function myRequest<T>({ reqType, data = {}, params = {} }: RequestType) {
+export function myRequest<T = any>({ reqType, data = {}, params = {} }: RequestType) {
   if (!(reqType in apiMap)) {
     showMessage.error('无效的请求')
     return Promise.reject('无效的请求')

@@ -34,3 +34,5 @@ export const menuList: Menu[] = [
     ]
   }
 ]
+
+export const noMenuList: Menu[] = []
